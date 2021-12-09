@@ -9,6 +9,13 @@ apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
 apply from: '../config/detekt/detekt.gradle'
 
+//Resgata o arquivo
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+//Cria var properties
+def apikeyProperties = new Properties()
+//Carrega em properties o conteudo do arquivo.
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
@@ -21,6 +28,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //Cria constante dentro da classe BuildConfig, acessada de qualquer lugar no app
+        buildConfigField "String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY']
+        buildConfigField "String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
+        //Criar config base URL
+        buildConfigField "String", "BASE_URL", '"https://gateway.marvel.com/v1/public/"'
     }
 
     buildTypes {
