@@ -1,6 +1,7 @@
 package com.example.marvelapp.framework.di
 
 import com.example.marvelapp.BuildConfig
+import com.luche.core.data.network.interceptor.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 //Anotação Dagger que indica modulo
@@ -17,8 +19,9 @@ import java.util.concurrent.TimeUnit
 //app e criação como singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    //Provides, notação que indica que essa fun prove uma dependencia.
+    private const val TIMEOUT_SECONDS = 15L
 
+    //Provides, notação que indica que essa fun prove uma dependencia.
     @Provides
     fun provideLogginInterceptor() : HttpLoggingInterceptor{
         return HttpLoggingInterceptor().apply {
@@ -34,13 +37,26 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-        logginInterceptor: HttpLoggingInterceptor
+        logginInterceptor: HttpLoggingInterceptor,
+        authorizationInterceptor: AuthorizationInterceptor
     ) : OkHttpClient{
         return OkHttpClient.Builder()
+                //Interceptor que loga as chamada
             .addInterceptor(logginInterceptor)
-            .readTimeout(15,TimeUnit.SECONDS)
-            .connectTimeout(15,TimeUnit.SECONDS)
+                //Interceptor que seta configuração de authorização com as chaves da api
+            .addInterceptor(authorizationInterceptor)
+            .readTimeout(TIMEOUT_SECONDS,TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_SECONDS,TimeUnit.SECONDS)
             .build()
+    }
+
+    @Provides
+    fun provideAuthorizationInterceptor() :  AuthorizationInterceptor {
+        return AuthorizationInterceptor(
+            publicKey = BuildConfig.PUBLIC_KEY,
+            privateKey = BuildConfig.PRIVATE_KEY,
+            calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        )
     }
 
     @Provides
