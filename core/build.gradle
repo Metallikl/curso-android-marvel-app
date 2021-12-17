@@ -10,6 +10,9 @@ java {
 
 dependencies {
 
+    //api - Diz que a dependencia esta disponivel para o modulo atual(core) e os modulos que
+    //o implementarem
+
     // OkHttp
     api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
     api("com.squareup.okhttp3:okhttp")
@@ -23,6 +26,13 @@ dependencies {
     //Gson
     api 'com.google.code.gson:gson:2.8.6'
 
-    //api - Diz que a dependencia esta disponivel para o modulo atual(core) e os modulos que
-    //o implementarem
+    // Paging3 Common, apenas classes puras, sem dependencia do framwork Android
+    implementation "androidx.paging:paging-common:$paging_version"
+
+    //Javax Inject , permite usar as anotações @Inject do hilt
+    implementation "javax.inject:javax.inject:1"
+
+    //Coroutine core
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
 }
