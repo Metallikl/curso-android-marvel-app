@@ -2,6 +2,7 @@ package com.example.marvelapp.framework
 
 import androidx.paging.PagingSource
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
+import com.example.marvelapp.framework.paging.CharactersPagingSource
 import com.luche.core.data.repository.CharacterRemoteDataSource
 import com.luche.core.data.repository.CharactersRepository
 import com.luche.core.domain.Character
@@ -12,6 +13,6 @@ class CharactersRepositoryImpl @Inject constructor(
     private val remoteDataSource: CharacterRemoteDataSource<DataWrapperResponse>
 ): CharactersRepository {
     override fun getCharacters(query: String): PagingSource<Int, Character> {
-        //return
+        return CharactersPagingSource(remoteDataSource,query)
     }
 }
