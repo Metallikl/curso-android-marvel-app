@@ -12,6 +12,7 @@ class CharactersPagingSource(
     private val query: String
 ) : PagingSource<Int,Character>(){
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         return try {
                 //params é recebido via param. Na primeira chamada do metodo load, key é null entao
@@ -37,7 +38,7 @@ class CharactersPagingSource(
                 // mais dados para solicitar.
 
                 LoadResult.Page(
-                    data = response.data.result.map { it.toCharacterModel() },
+                    data = response.data.results.map { it.toCharacterModel() },
                     prevKey = null,//Ultima pagina
                     //Enquanto next key diferente de null, o pagin entende que existem mais dados a
                     nextKey = if(responseOffset < totalCharacters){

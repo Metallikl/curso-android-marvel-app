@@ -3,5 +3,5 @@ package com.example.marvelapp.framework.network.response
 data class DataContainerResponse(
     val offset: Int,
     val total: Int,
-    val result: List<CharacterResponse>
+    val results: List<CharacterResponse>
 )
