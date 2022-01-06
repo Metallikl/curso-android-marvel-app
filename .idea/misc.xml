@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.39114583333333336" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/fragment_characters.xml" value="0.16770833333333332" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/include_view_characters_error_state.xml" value="0.4466666666666667" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/include_view_characters_loading_state.xml" value="0.16770833333333332" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/item_character.xml" value="0.16770833333333332" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/item_character_lod_more_state.xml" value="0.4466666666666667" />
+        <entry key="..\:/Android/Tsts/curso-android-marvel-app/app/src/main/res/layout/shimmer_layout_character_item.xml" value="0.16770833333333332" />
         <entry key="..\:/Android/camp/curso-android-marvel-app/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Android/camp/curso-android-marvel-app/app/src/main/res/layout/fragment_about.xml" value="0.1796875" />
         <entry key="..\:/Android/camp/curso-android-marvel-app/app/src/main/res/layout/fragment_characters.xml" value="0.36666666666666664" />
