@@ -2,21 +2,15 @@ package com.example.marvelapp.presentation.characters
 
 import androidx.paging.PagingData
 import com.example.testing.MainCoroutineRule
-import com.luche.core.domain.Character
+import com.example.testing.model.CharacterFactory
 import com.luche.core.usecase.GetCharactersUseCase
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,39 +24,45 @@ import java.lang.RuntimeException
 @RunWith(MockitoJUnitRunner::class)
 class CharactersViewModelTest{
 
+//    @ExperimentalCoroutinesApi
+//    //Cria dispatcher do coroutine para utilzar chamadas de coroutine nos testes
+//    //O TestCoroutineDispatcher executa tudo na mesma thread e executa o codigo imediaamente
+//    //versão sem classe de regra
+//    val testDispatchers : TestCoroutineDispatcher = TestCoroutineDispatcher()
+
     @ExperimentalCoroutinesApi
-    //Cria dispatcher do coroutine para utilzar chamadas de coroutine nos testes
-    //O TestCoroutineDispatcher executa tudo na mesma thread e executa o codigo imediaamente
-    val testDispatchers : TestCoroutineDispatcher = TestCoroutineDispatcher()
+    @get:Rule
+    var mainCoroutineRule= MainCoroutineRule()
+
 
     //Notação que indica que o mockito deve criar a instancia dessa var.
     @Mock
     lateinit var getCharactersUseCase: GetCharactersUseCase
 
     private lateinit var charactersViewModel: CharactersViewModel
+    //Usa factory para gerar os caracters
+    private val charactersFactory = CharacterFactory()
 
     //Cria retorno do paging data para usar como retorno do usecase
     private val pagingDataCharacter = PagingData.from(
         listOf(
-            Character(
-                "3-D Man",
-                "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"
-            ),
-            Character(
-                "A-Bomb (HAS)",
-                "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg"
-            ),
+            charactersFactory.create(CharacterFactory.Hero.ThreeDMan),
+            charactersFactory.create(CharacterFactory.Hero.ABomb),
         )
     )
-    //Notação que indica que essa fun deve ser rodada sempre antes das funções anotadas com @Test
-    @ExperimentalCoroutinesApi
-    @Before
-    //Fun que rodara a inicilização das vars e instancias que usaremos nos testes
-    fun setUp(){
-        //Define para rodar no bloco main
-        Dispatchers.setMain(testDispatchers)
-        charactersViewModel = CharactersViewModel(getCharactersUseCase)
-    }
+    /*
+    * Após criação da nossa classe MainCoroutineRule e defini-la no get:Rule do jUnit, não é mais
+    * Necessario chamar o metodo before e after, pois isso será feita pela MainCoroutineRule
+    */
+//    //Notação que indica que essa fun deve ser rodada sempre antes das funções anotadas com @Test
+//    @ExperimentalCoroutinesApi
+//    @Before
+//    //Fun que rodara a inicilização das vars e instancias que usaremos nos testes
+//    fun setUp(){
+//        //Define para rodar no bloco main
+//        Dispatchers.setMain(testDispatchers)
+//        charactersViewModel = CharactersViewModel(getCharactersUseCase)
+//    }
 
     @ExperimentalCoroutinesApi
     @Test
@@ -114,14 +114,18 @@ class CharactersViewModelTest{
         }
 
     /*
-     * Assim como temos o @Before anotado metodo setUp para seja executado sempre antes de um teste
-     * ser iniciado, temos tambem @After, que roda sempre apos o teste finalizar. Aqui anotamos o
-     * metodo tearDown que vai resetar o Dispatcher main e limpara os dados da coroutine
-     */
-    @ExperimentalCoroutinesApi
-    @After
-    fun tearDownDispatcher(){
-        Dispatchers.resetMain()
-        testDispatchers.cleanupTestCoroutines()
-    }
+    * Após criação da nossa classe MainCoroutineRule e defini-la no get:Rule do jUnit, não é mais
+    * Necessario chamar o metodo before e after, pois isso será feita pela MainCoroutineRule
+    */
+//    /*
+//     * Assim como temos o @Before anotado metodo setUp para seja executado sempre antes de um teste
+//     * ser iniciado, temos tambem @After, que roda sempre apos o teste finalizar. Aqui anotamos o
+//     * metodo tearDown que vai resetar o Dispatcher main e limpara os dados da coroutine
+//     */
+//    @ExperimentalCoroutinesApi
+//    @After
+//    fun tearDownDispatcher(){
+//        Dispatchers.resetMain()
+//        testDispatchers.cleanupTestCoroutines()
+//    }
 }
