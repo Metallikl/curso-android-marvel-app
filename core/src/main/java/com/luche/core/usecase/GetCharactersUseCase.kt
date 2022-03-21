@@ -5,26 +5,38 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.luche.core.data.repository.CharactersRepository
 import com.luche.core.domain.Character
+import com.luche.core.usecase.GetCharactersUseCase.GetCharactersParams
 import com.luche.core.usecase.base.PagingUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.management.loading.ClassLoaderRepository
 
-class GetCharactersUseCase @Inject constructor (
+
+/**
+ * Criamos a interface com a fun invoke e fazemos anossa classe GetCharactersUseCaseImpl implemetala
+ * Isso ja era feito anteriormente, mas como uma fun.
+ * Além de seguir conceitos do SOLID, depender de interfaces e não implementações, agora o mockito
+ * poderá mockar esse usecase
+ */
+interface GetCharactersUseCase {
+    operator fun invoke(params: GetCharactersParams): Flow<PagingData<Character>>
+
+    //Cria data class que representa o tipo de entrada para o usecase.
+    data class GetCharactersParams(val query: String, val pagingConfig: PagingConfig)
+}
+
+
+class GetCharactersUseCaseImpl @Inject constructor(
     //Sempre passar a dependencia da interface e não da implementação.
     private val charactersRepository: CharactersRepository
-) : PagingUseCase<GetCharactersUseCase.GetCharactersParams, Character>() {
-
+) : PagingUseCase<GetCharactersUseCase.GetCharactersParams, Character>(),
+    GetCharactersUseCase
+{
     override fun createFlowObservable(params: GetCharactersParams): Flow<PagingData<Character>> {
         //Cria pager, cujo retorno é um PagingData, que recebe a configuração enviada pelo ViewModel
         //e realiza chamada da api passando os params de query recebidos. Ao final, usa o . flow
         // para converter o PagingData em um Flow.
-        return Pager( config = params.pagingConfig){
+        return Pager(config = params.pagingConfig) {
             charactersRepository.getCharacters(params.query)
         }.flow
     }
-
-    //Cria data class que representa o tipo de entrada para o usecase.
-    data class GetCharactersParams(val query: String, val pagingConfig: PagingConfig)
-
 }
