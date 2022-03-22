@@ -1,12 +1,9 @@
 package com.example.marvelapp.presentation.characters
 
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import com.luche.core.domain.Character
+import com.example.core.domain.Character
 
 class CharactersAdapter : PagingDataAdapter<Character, CharactersViewHolder>(diffCallback)  {
 

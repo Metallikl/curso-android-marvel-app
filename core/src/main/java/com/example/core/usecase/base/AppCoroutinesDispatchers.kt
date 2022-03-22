@@ -1,4 +1,4 @@
-package com.luche.core.usecase.base
+package com.example.core.usecase.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 

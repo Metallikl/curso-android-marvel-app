@@ -1,12 +1,12 @@
-package com.luche.core.usecase
+package com.example.core.usecase
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.luche.core.data.repository.CharactersRepository
-import com.luche.core.domain.Character
-import com.luche.core.usecase.GetCharactersUseCase.GetCharactersParams
-import com.luche.core.usecase.base.PagingUseCase
+import com.example.core.repository.CharactersRepository
+import com.example.core.domain.Character
+import com.example.core.usecase.GetCharactersUseCase.GetCharactersParams
+import com.example.core.usecase.base.PagingUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -29,14 +29,14 @@ class GetCharactersUseCaseImpl @Inject constructor(
     //Sempre passar a dependencia da interface e não da implementação.
     private val charactersRepository: CharactersRepository
 ) : PagingUseCase<GetCharactersUseCase.GetCharactersParams, Character>(),
-    GetCharactersUseCase
-{
+    GetCharactersUseCase {
     override fun createFlowObservable(params: GetCharactersParams): Flow<PagingData<Character>> {
         //Cria pager, cujo retorno é um PagingData, que recebe a configuração enviada pelo ViewModel
         //e realiza chamada da api passando os params de query recebidos. Ao final, usa o . flow
         // para converter o PagingData em um Flow.
+        val paginSource = charactersRepository.getCharacters(params.query)
         return Pager(config = params.pagingConfig) {
-            charactersRepository.getCharacters(params.query)
+            paginSource
         }.flow
     }
 }

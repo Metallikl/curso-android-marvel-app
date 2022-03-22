@@ -3,7 +3,7 @@ package com.example.marvelapp.presentation.characters
 import androidx.paging.PagingData
 import com.example.testing.MainCoroutineRule
 import com.example.testing.model.CharacterFactory
-import com.luche.core.usecase.GetCharactersUseCase
+import com.example.core.usecase.GetCharactersUseCase
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,17 +53,17 @@ class CharactersViewModelTest{
     )
     /*
     * Após criação da nossa classe MainCoroutineRule e defini-la no get:Rule do jUnit, não é mais
-    * Necessario chamar o metodo before e after, pois isso será feita pela MainCoroutineRule
+    * Necessario setar os dispatchers e nem reseta lo no metodos anotados com before e after
     */
-//    //Notação que indica que essa fun deve ser rodada sempre antes das funções anotadas com @Test
-//    @ExperimentalCoroutinesApi
-//    @Before
-//    //Fun que rodara a inicilização das vars e instancias que usaremos nos testes
-//    fun setUp(){
+    //Notação que indica que essa fun deve ser rodada sempre antes das funções anotadas com @Test
+    @ExperimentalCoroutinesApi
+    @Before
+    //Fun que rodara a inicilização das vars e instancias que usaremos nos testes
+    fun setUp(){
 //        //Define para rodar no bloco main
 //        Dispatchers.setMain(testDispatchers)
-//        charactersViewModel = CharactersViewModel(getCharactersUseCase)
-//    }
+        charactersViewModel = CharactersViewModel(getCharactersUseCase)
+    }
 
     @ExperimentalCoroutinesApi
     @Test
@@ -115,7 +116,7 @@ class CharactersViewModelTest{
 
     /*
     * Após criação da nossa classe MainCoroutineRule e defini-la no get:Rule do jUnit, não é mais
-    * Necessario chamar o metodo before e after, pois isso será feita pela MainCoroutineRule
+    * Necessario setar os dispatchers e nem reseta lo no metodos anotados com before e after
     */
 //    /*
 //     * Assim como temos o @Before anotado metodo setUp para seja executado sempre antes de um teste

@@ -1,7 +1,7 @@
-package com.luche.core.data.repository
+package com.example.core.repository
 
 import androidx.paging.PagingSource
-import com.luche.core.domain.Character
+import com.example.core.domain.Character
 
 interface CharactersRepository {
     //PagingSource usar key(numero da pagina) e valor retornado

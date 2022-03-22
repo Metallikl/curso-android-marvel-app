@@ -1,6 +1,6 @@
 package com.example.marvelapp.framework.network.response
 
-import com.luche.core.domain.Character
+import com.example.core.domain.Character
 
 data class CharacterResponse(
     val id: String,

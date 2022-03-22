@@ -3,8 +3,8 @@ package com.example.marvelapp.framework.di
 import com.example.marvelapp.framework.CharactersRepositoryImpl
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.remote.RetrofitCharactersDataSource
-import com.luche.core.data.repository.CharacterRemoteDataSource
-import com.luche.core.data.repository.CharactersRepository
+import com.example.core.repository.CharacterRemoteDataSource
+import com.example.core.repository.CharactersRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

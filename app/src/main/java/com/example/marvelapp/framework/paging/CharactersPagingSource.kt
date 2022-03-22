@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.network.response.toCharacterModel
-import com.luche.core.data.repository.CharacterRemoteDataSource
-import com.luche.core.domain.Character
+import com.example.core.repository.CharacterRemoteDataSource
+import com.example.core.domain.Character
 
 class CharactersPagingSource(
     private val remoteDataSource: CharacterRemoteDataSource<DataWrapperResponse>,

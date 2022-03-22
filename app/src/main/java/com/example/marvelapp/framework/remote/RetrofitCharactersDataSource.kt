@@ -2,7 +2,7 @@ package com.example.marvelapp.framework.remote
 
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
-import com.luche.core.data.repository.CharacterRemoteDataSource
+import com.example.core.repository.CharacterRemoteDataSource
 import javax.inject.Inject
 
 //Classes que são "nossas" criadas no projeto, não precisam ser criadas em modulos para que o
